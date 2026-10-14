@@ -1,0 +1,4 @@
+gcm.cache/
+*.o
+converter
+converter.exe
