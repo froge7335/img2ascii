@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
             out += '\n';
         }
 
-        cout << out;
+        print("{}", out);
     } catch (const exception& e) {
         cerr << "error: " << e.what() << "\n" << usage << "\n";
         return 1;

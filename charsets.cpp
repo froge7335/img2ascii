@@ -5,8 +5,8 @@ import std;
 using namespace std;
 
 export inline constexpr const char* STANDARD = " .:-=+*#%@";
-// braille expressed as ⠁ ⠃ ⠇ ⡇ ⣇ ⣧ ⣷ ⣿
-export inline constexpr const char* BRAILLE = " " "\xE2\xA0\x81" "\xE2\xA0\x83" "\xE2\xA0\x87" "\xE2\xA1\x87" "\xE2\xA3\x87" "\xE2\xA3\xA7" "\xE2\xA3\xB7" "\xE2\xA3\xBF";
+// braille expressed as ⠀ ⠁ ⠃ ⠇ ⡇ ⣇ ⣧ ⣷ ⣿ (first is the blank U+2800)
+export inline constexpr const char* BRAILLE = "\xE2\xA0\x80" "\xE2\xA0\x81" "\xE2\xA0\x83" "\xE2\xA0\x87" "\xE2\xA1\x87" "\xE2\xA3\x87" "\xE2\xA3\xA7" "\xE2\xA3\xB7" "\xE2\xA3\xBF";
 
 export vector<string> splitUtf8(const string& s) {
     vector<string> glyphs;
