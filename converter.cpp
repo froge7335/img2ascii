@@ -6,7 +6,7 @@ using namespace std;
 extern "C" unsigned char* decode_rgba(const unsigned char* data, int size, int* w, int* h, const char** err);
 extern "C" void free_rgba(unsigned char* pixels);
 
-constexpr const char* usage = "usage: converter <standard|braille|custom \"<ramp>\"> <low|med|high|xhigh> <image>";
+constexpr const char* usage = "usage: converter [--invert] <standard|braille|custom \"<ramp>\"> <low|med|high|xhigh> <image>";
 
 int resolutionColumns(const string& name) {
     if (name == "low")   return 40;
@@ -26,6 +26,16 @@ vector<unsigned char> readFile(const string& path) {
 
 int main(int argc, char** argv) {
     try {
+        bool invert = false;
+        // flags must precede positional args
+        while (argc > 1 && string(argv[1]).starts_with("--")) {
+            const string flag = argv[1];
+            if (flag == "--invert") invert = true;
+            else throw invalid_argument("unknown flag '" + flag + "'");
+            ++argv;
+            --argc;
+        }
+
         vector<string> ramp;
         int next = 2;
         if (argc > 1 && string(argv[1]) == "custom") {
@@ -64,7 +74,8 @@ int main(int argc, char** argv) {
                 for (int y = y0; y < y1; ++y) {
                     for (int x = x0; x < x1; ++x) {
                         const unsigned char* p = &pixels[(static_cast<size_t>(y) * w + x) * 4];
-                        sum += (0.2126 * p[0] + 0.7152 * p[1] + 0.0722 * p[2]) / 255 * p[3] / 255;
+                        const double luma = (0.2126 * p[0] + 0.7152 * p[1] + 0.0722 * p[2]) / 255;
+                        sum += (invert ? 1 - luma : luma) * p[3] / 255;
                     }
                 }
 
