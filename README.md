@@ -26,12 +26,16 @@ Rows keep the aspect ratio, halved because terminal cells are about twice as tal
 
 The --invert flag is optional and will invert the glyphs used. Transparent pixels will still map to the first glyph however. 
 
+The --colour (or --color, for the americans) flag is optional and prints each glyph in the average colour of its pixels using 24-bit ANSI codes. --invert changes only the glyphs, not the colours. Needs a terminal with 24-bit colour support.
+
 ```
 .\converter standard med photo.jpg
 .\converter braille high logo.png
 .\converter custom " .oO@" low cat.webp
 .\converter standard xhigh pic.png > out.txt
 .\converter --invert braille med example.jpg
+.\converter --colour standard med photo.jpg
+.\converter --invert --color braille high logo.png > out.txt
 ```
 
 ## Formats
@@ -44,7 +48,6 @@ The --invert flag is optional and will invert the glyphs used. Transparent pixel
 
 - Animated GIFs: only the first frame is used. Animated WebP is not supported
 - Vector formats (SVG) are not supported yet
-- Colour support will be added in the future
 
 ## Third-party
 
